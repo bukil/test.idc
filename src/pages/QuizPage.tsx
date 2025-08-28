@@ -30,43 +30,53 @@ export default function QuizPage() {
   if (!q) return null
 
   return (
-    <Card>
-      <CardContent>
-        <Stack spacing={2}>
-          <Typography variant="h6">Question {index + 1} of {questions.length}</Typography>
-          <LinearProgress variant="determinate" value={progress} />
-          <Typography variant="subtitle1">{q.text}</Typography>
-          <Stack direction="row" spacing={2} useFlexGap flexWrap="wrap">
-            {q.options.map((opt, i) => (
-              <Box
-                key={i}
-                onClick={() => setChoice(i)}
-                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setChoice(i) }}
-                role="button"
-                tabIndex={0}
-                aria-label={`option ${i + 1}`}
-                aria-pressed={choice === i}
-                sx={{
-                  width: 96,
-                  height: 96,
-                  backgroundColor: opt,
-                  border: '1px solid #808080',
-                  borderTopColor: '#ffffff',
-                  borderLeftColor: '#ffffff',
-                  cursor: 'pointer',
-                  outline: choice === i ? '2px solid #0a64a4' : 'none',
-                }}
-              />
-            ))}
+    <Stack spacing={2}>
+      {/* Instructions outside the panel */}
+      <Stack spacing={0.5} sx={{ color: 'text.secondary' }}>
+        <Typography variant="body2" sx={{ fontWeight: 600 }}>Click the disk that's a different color. Use your eyes only! Make sure to disable any blue-light filter on your screen.</Typography>
+        <Typography variant="body2" sx={{ fontWeight: 600 }}>जिस डिस्क का रंग अलग है, उस पर क्लिक करें। केवल अपनी आँखों का उपयोग करें! सुनिश्चित करें कि आपकी स्क्रीन पर कोई ब्लू-लाइट फ़िल्टर चालू न हो।</Typography>
+        <Typography variant="body2" sx={{ fontWeight: 600 }}>ज्या डिस्कचा रंग वेगळा आहे त्यावर क्लिक करा. फक्त डोळ्यांचा वापर करा! आपल्या स्क्रीनवर कोणताही ब्लू-लाइट फिल्टर चालू नसल्याची खात्री करा.</Typography>
+      </Stack>
+      {/* Windows ME-style beveled divider under instructions */}
+      <Box role="separator" aria-hidden sx={{ width: '100%', borderTop: '1px solid #ffffff', borderBottom: '1px solid #7f7f7f' }} />
+      <Card>
+        <CardContent>
+          <Stack spacing={2}>
+            <Typography variant="h6">Question {index + 1} of {questions.length}</Typography>
+            <LinearProgress variant="determinate" value={progress} />
+            <Typography variant="subtitle1">{q.text}</Typography>
+            <Stack direction="row" spacing={2} useFlexGap flexWrap="wrap">
+              {q.options.map((opt, i) => (
+                <Box
+                  key={i}
+                  onClick={() => setChoice(i)}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setChoice(i) }}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`option ${i + 1}`}
+                  aria-pressed={choice === i}
+                  sx={{
+                    width: 96,
+                    height: 96,
+                    backgroundColor: opt,
+                    border: '1px solid #808080',
+                    borderTopColor: '#ffffff',
+                    borderLeftColor: '#ffffff',
+                    cursor: 'pointer',
+                    outline: choice === i ? '2px solid #0a64a4' : 'none',
+                  }}
+                />
+              ))}
+            </Stack>
+            <Stack direction="row" spacing={2}>
+              <Button variant="outlined" onClick={onRestart}>Restart</Button>
+              <Button variant="contained" onClick={onNext} disabled={choice === null}>
+                {index + 1 < questions.length ? 'Next' : 'Finish'}
+              </Button>
+            </Stack>
           </Stack>
-          <Stack direction="row" spacing={2}>
-            <Button variant="outlined" onClick={onRestart}>Restart</Button>
-            <Button variant="contained" onClick={onNext} disabled={choice === null}>
-              {index + 1 < questions.length ? 'Next' : 'Finish'}
-            </Button>
-          </Stack>
-        </Stack>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+    </Stack>
   )
 }
