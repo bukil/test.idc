@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react'
-import { Button, Card, CardContent, Typography, Stack, LinearProgress, Box, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material'
+import { useEffect, useMemo, useState } from 'react'
+import { Button, Card, CardContent, Typography, Stack, LinearProgress, Box } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { useQuiz } from '../context/QuizContext'
 
@@ -7,7 +7,6 @@ export default function QuizPage() {
   const { questions, recordAnswer, answers } = useQuiz()
   const [index, setIndex] = useState(0)
   const [choice, setChoice] = useState<number | null>(null)
-  const [confirmOpen, setConfirmOpen] = useState(false)
   const nav = useNavigate()
 
   const q = useMemo(() => questions[index], [questions, index])
@@ -93,7 +92,7 @@ export default function QuizPage() {
           </Stack>
         </CardContent>
       </Card>
-      {/* Restart confirmation dialog */}
+  {/* end */}
     </Stack>
   )
 }
