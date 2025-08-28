@@ -29,8 +29,8 @@ export default function QuizPage() {
     // Store the actual color value selected
     recordAnswer(index, q.options[choice])
     setChoice(null)
-    if (index + 1 < questions.length) setIndex(index + 1)
-    else nav('/results')
+  if (index + 1 < questions.length) setIndex(index + 1)
+  else nav('/round-b')
   }
 
   // Restart removed per requirements

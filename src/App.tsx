@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom'
 import { Container, Box, Stack, Typography } from '@mui/material'
 import HomePage from './pages/HomePage'
 import QuizPage from './pages/QuizPage'
+import RoundBPage from './pages/RoundBPage'
 import ResultsPage from './pages/ResultsPage'
 import { QuizProvider } from './context/QuizContext'
 
@@ -15,6 +16,7 @@ export default function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/quiz" element={<QuizPage />} />
               <Route path="/results" element={<ResultsPage />} />
+              <Route path="/round-b" element={<RoundBPage />} />
             </Routes>
           </Container>
         </Box>

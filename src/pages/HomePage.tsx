@@ -8,11 +8,9 @@ export default function HomePage() {
         <Typography variant="h5" gutterBottom>
           Welcome to the Simple Quiz
         </Typography>
-        <Typography paragraph>
-          Click start to begin the quiz.
-        </Typography>
+        <Typography paragraph>Click start to begin the quiz.</Typography>
         <Button variant="contained" color="primary" component={Link} to="/quiz">
-          Start Quiz
+          Start
         </Button>
       </CardContent>
     </Card>

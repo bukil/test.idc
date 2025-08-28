@@ -11,7 +11,8 @@ body {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   background-color: #C0C0C0; /* Windows ME grey */
   color: #000;
-  overflow: hidden; /* avoid tiny scroll when content fits */
+  /* Allow natural scroll if content needs it; pages manage inner scroll where needed */
+  overflow-y: auto;
 }
 
 /* Remove rounding across the app */
