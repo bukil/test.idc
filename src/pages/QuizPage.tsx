@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { Button, Card, CardContent, Typography, Stack, LinearProgress, RadioGroup, FormControlLabel, Radio } from '@mui/material'
+import { Button, Card, CardContent, Typography, Stack, LinearProgress, Box } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { useQuiz } from '../context/QuizContext'
 
@@ -35,11 +35,26 @@ export default function QuizPage() {
           <Typography variant="h6">Question {index + 1} of {questions.length}</Typography>
           <LinearProgress variant="determinate" value={progress} />
           <Typography variant="subtitle1">{q.text}</Typography>
-          <RadioGroup value={choice} onChange={(e) => setChoice(e.target.value)}>
-            {q.options.map((opt) => (
-              <FormControlLabel key={opt} value={opt} control={<Radio />} label={opt} />
+          <Stack direction="row" spacing={2} useFlexGap flexWrap="wrap">
+            {q.options.map((opt, i) => (
+              <Box
+                key={i}
+                onClick={() => setChoice(opt)}
+                role="button"
+                aria-label={`option ${i + 1}`}
+                sx={{
+                  width: 96,
+                  height: 96,
+                  backgroundColor: opt,
+                  border: '1px solid #808080',
+                  borderTopColor: '#ffffff',
+                  borderLeftColor: '#ffffff',
+                  cursor: 'pointer',
+                  outline: choice === opt ? '2px solid #0a64a4' : 'none',
+                }}
+              />
             ))}
-          </RadioGroup>
+          </Stack>
           <Stack direction="row" spacing={2}>
             <Button variant="outlined" onClick={onRestart}>Restart</Button>
             <Button variant="contained" onClick={onNext} disabled={!choice}>
