@@ -67,4 +67,4 @@ function genQuestion(i: number): Question {
   }
 }
 
-export const questions: Question[] = Array.from({ length: 20 }, (_, i) => genQuestion(i + 1))
+export const questions: Question[] = Array.from({ length: 5 }, (_, i) => genQuestion(i + 1))

@@ -1,4 +1,6 @@
 import { Button, Card, CardContent, Typography, Stack, List, ListItem, ListItemText, Box } from '@mui/material'
+import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import CancelIcon from '@mui/icons-material/Cancel'
 import { Link } from 'react-router-dom'
 import { useQuiz } from '../context/QuizContext'
 
@@ -18,7 +20,7 @@ export default function ResultsPage() {
               const correct = q.answer
               const isCorrect = selected === correct
               return (
-                <ListItem key={q.id} divider>
+                <ListItem key={q.id} divider sx={{ display: 'flex', alignItems: 'center' }}>
                   <ListItemText
                     primary={`${idx + 1}. ${q.text}`}
                     primaryTypographyProps={{ color: isCorrect ? 'success.main' : 'error.main' }}
@@ -26,17 +28,32 @@ export default function ResultsPage() {
                       <Stack direction="row" spacing={2} alignItems="center">
                         <Stack direction="row" spacing={1} alignItems="center">
                           <Typography variant="caption">Your:</Typography>
-                          <Box sx={{ width: 16, height: 16, border: '1px solid #808080', backgroundColor: selected || 'transparent' }} />
+                          <Box
+                            sx={{
+                              width: 16,
+                              height: 16,
+                              border: selected ? '2px solid' : '1px solid',
+                              borderColor: selected ? (isCorrect ? 'success.main' : 'error.main') : '#808080',
+                              backgroundColor: selected || 'transparent',
+                            }}
+                          />
                           <Typography variant="caption">{selected ?? '-'}</Typography>
                         </Stack>
                         <Stack direction="row" spacing={1} alignItems="center">
                           <Typography variant="caption">Correct:</Typography>
-                          <Box sx={{ width: 16, height: 16, border: '1px solid #808080', backgroundColor: correct }} />
+                          <Box sx={{ width: 16, height: 16, border: '2px solid', borderColor: 'success.main', backgroundColor: correct }} />
                           <Typography variant="caption">{correct}</Typography>
                         </Stack>
                       </Stack>
                     }
                   />
+                  <Box sx={{ ml: 2, marginLeft: 'auto' }}>
+                    {isCorrect ? (
+                      <CheckCircleIcon sx={{ color: 'success.main' }} />
+                    ) : (
+                      <CancelIcon sx={{ color: 'error.main' }} />
+                    )}
+                  </Box>
                 </ListItem>
               )
             })}

@@ -41,14 +41,14 @@ export default function QuizPage() {
     <Stack spacing={2}>
       {/* Instructions outside the panel */}
       <Stack spacing={0.5} sx={{ color: 'text.secondary' }}>
-        <Typography variant="body2" sx={{ fontWeight: 600 }}>Click the disk that's a different color. Use your eyes only! Make sure to disable any blue-light filter on your screen.</Typography>
-        <Typography variant="body2" lang="hi" sx={{ fontWeight: 600 }}>जिस डिस्क का रंग अलग है, उस पर क्लिक करें। केवल अपनी आँखों का उपयोग करें! सुनिश्चित करें कि आपकी स्क्रीन पर कोई ब्लू-लाइट फ़िल्टर चालू न हो।</Typography>
-        <Typography variant="body2" lang="mr" sx={{ fontWeight: 600 }}>ज्या डिस्कचा रंग वेगळा आहे त्यावर क्लिक करा. फक्त डोळ्यांचा वापर करा! आपल्या स्क्रीनवर कोणताही ब्लू-लाइट फिल्टर चालू नसल्याची खात्री करा.</Typography>
+        <Typography variant="body2">Click the disk that's a different color. Use your eyes only! Make sure to disable any blue-light filter on your screen.</Typography>
+        <Typography variant="body2" lang="hi">जिस डिस्क का रंग अलग है, उस पर क्लिक करें। केवल अपनी आँखों का उपयोग करें! सुनिश्चित करें कि आपकी स्क्रीन पर कोई ब्लू-लाइट फ़िल्टर चालू न हो।</Typography>
+        <Typography variant="body2" lang="mr">ज्या डिस्कचा रंग वेगळा आहे त्यावर क्लिक करा. फक्त डोळ्यांचा वापर करा! आपल्या स्क्रीनवर कोणताही ब्लू-लाइट फिल्टर चालू नसल्याची खात्री करा.</Typography>
       </Stack>
       {/* Windows ME-style beveled divider under instructions */}
       <Box role="separator" aria-hidden sx={{ width: '100%', borderTop: '1px solid #ffffff', borderBottom: '1px solid #7f7f7f' }} />
-      <Card>
-        <CardContent>
+      <Card sx={{ borderRadius: '8px !important' }}>
+        <CardContent sx={{ p: 2 }}>
           <Stack spacing={2}>
             <Typography variant="h6">Question {index + 1} of {questions.length}</Typography>
             <LinearProgress variant="determinate" value={progress} />
@@ -62,7 +62,7 @@ export default function QuizPage() {
                 alignItems: 'center',
               }}
             >
-              {q.options.map((opt, i) => (
+      {q.options.map((opt, i) => (
                 <Box
                   key={i}
                   onClick={() => setChoice(i)}
@@ -76,16 +76,21 @@ export default function QuizPage() {
                     height: 96,
                     backgroundColor: opt,
                     border: '1px solid #808080',
-                    borderTopColor: '#ffffff',
-                    borderLeftColor: '#ffffff',
+        borderRadius: '8px !important',
                     cursor: 'pointer',
                     outline: choice === i ? '2px solid #0a64a4' : 'none',
                   }}
                 />
               ))}
             </Box>
-            <Stack direction="row" spacing={2}>
-              <Button variant="contained" onClick={onNext} disabled={choice === null}>
+            <Stack direction="row" spacing={2} sx={{ justifyContent: 'flex-end', mt: 2 }}>
+              <Button
+                variant="contained"
+                size="large"
+                sx={{ minWidth: 200, px: 3, borderRadius: '6px !important' }}
+                onClick={onNext}
+                disabled={choice === null}
+              >
                 {index + 1 < questions.length ? 'Next' : 'Finish'}
               </Button>
             </Stack>

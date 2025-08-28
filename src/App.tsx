@@ -18,12 +18,8 @@ export default function App() {
             </Routes>
           </Container>
         </Box>
-        {/* Windows ME-style beveled line above footer */}
-        <Box
-          role="separator"
-          aria-hidden
-          sx={{ width: '100%', borderTop: '1px solid #ffffff', borderBottom: '1px solid #7f7f7f' }}
-        />
+  {/* Single grey line above footer */}
+  <Box role="separator" aria-hidden sx={{ width: '100%', borderTop: '1px solid #7f7f7f' }} />
         <Box component="footer" sx={{ py: 2 }}>
           <Box
             sx={{
