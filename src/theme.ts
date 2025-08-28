@@ -5,8 +5,7 @@ const bg = '#C0C0C0' // classic system grey
 const paper = '#DFDFDF'
 const borderLight = '#FFFFFF'
 const borderDark = '#808080'
-const titleStart = '#0a64a4'
-const titleEnd = '#094e84'
+const titleSolid = '#0a64a4'
 
 export const theme = createTheme({
   palette: {
@@ -23,7 +22,7 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           boxShadow: 'none',
-          backgroundImage: `linear-gradient(180deg, ${titleStart}, ${titleEnd})`,
+          backgroundColor: titleSolid,
           borderBottom: `2px solid ${borderDark}`,
         },
       },
@@ -56,7 +55,7 @@ export const theme = createTheme({
           border: `1px solid ${borderDark}`,
           borderTopColor: borderLight,
           borderLeftColor: borderLight,
-          backgroundImage: 'linear-gradient(180deg, #ffffff, #d9d9d9)',
+          backgroundColor: '#dcdcdc',
           color: '#000',
           boxShadow: 'none',
           textTransform: 'none',
@@ -66,7 +65,7 @@ export const theme = createTheme({
             borderLeftColor: borderDark,
             borderBottomColor: borderLight,
             borderRightColor: borderLight,
-            backgroundImage: 'linear-gradient(180deg, #d9d9d9, #ffffff)',
+            backgroundColor: '#eaeaea',
           },
         },
         contained: {
