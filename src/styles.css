@@ -18,3 +18,8 @@ body {
 * {
   border-radius: 0 !important;
 }
+
+/* Use Mukta for Indic scripts (Hindi, Marathi) */
+:lang(hi), :lang(mr) {
+  font-family: 'Mukta', Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}

@@ -1,16 +1,29 @@
 import { useMemo, useState } from 'react'
-import { Button, Card, CardContent, Typography, Stack, LinearProgress, Box } from '@mui/material'
+import { Button, Card, CardContent, Typography, Stack, LinearProgress, Box, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { useQuiz } from '../context/QuizContext'
 
 export default function QuizPage() {
-  const { questions, recordAnswer, reset } = useQuiz()
+  const { questions, recordAnswer, answers } = useQuiz()
   const [index, setIndex] = useState(0)
   const [choice, setChoice] = useState<number | null>(null)
+  const [confirmOpen, setConfirmOpen] = useState(false)
   const nav = useNavigate()
 
   const q = useMemo(() => questions[index], [questions, index])
   const progress = Math.round(((index) / questions.length) * 100)
+
+  // Warn on browser refresh if there is progress
+  useEffect(() => {
+    const hasProgress = Object.keys(answers).length > 0
+    if (!hasProgress) return
+    const onBeforeUnload = (e: BeforeUnloadEvent) => {
+      e.preventDefault()
+      e.returnValue = ''
+    }
+    window.addEventListener('beforeunload', onBeforeUnload)
+    return () => window.removeEventListener('beforeunload', onBeforeUnload)
+  }, [answers])
 
   const onNext = () => {
     if (choice === null) return
@@ -21,11 +34,7 @@ export default function QuizPage() {
     else nav('/results')
   }
 
-  const onRestart = () => {
-  reset()
-  setIndex(0)
-  setChoice(null)
-  }
+  // Restart removed per requirements
 
   if (!q) return null
 
@@ -34,8 +43,8 @@ export default function QuizPage() {
       {/* Instructions outside the panel */}
       <Stack spacing={0.5} sx={{ color: 'text.secondary' }}>
         <Typography variant="body2" sx={{ fontWeight: 600 }}>Click the disk that's a different color. Use your eyes only! Make sure to disable any blue-light filter on your screen.</Typography>
-        <Typography variant="body2" sx={{ fontWeight: 600 }}>जिस डिस्क का रंग अलग है, उस पर क्लिक करें। केवल अपनी आँखों का उपयोग करें! सुनिश्चित करें कि आपकी स्क्रीन पर कोई ब्लू-लाइट फ़िल्टर चालू न हो।</Typography>
-        <Typography variant="body2" sx={{ fontWeight: 600 }}>ज्या डिस्कचा रंग वेगळा आहे त्यावर क्लिक करा. फक्त डोळ्यांचा वापर करा! आपल्या स्क्रीनवर कोणताही ब्लू-लाइट फिल्टर चालू नसल्याची खात्री करा.</Typography>
+        <Typography variant="body2" lang="hi" sx={{ fontWeight: 600 }}>जिस डिस्क का रंग अलग है, उस पर क्लिक करें। केवल अपनी आँखों का उपयोग करें! सुनिश्चित करें कि आपकी स्क्रीन पर कोई ब्लू-लाइट फ़िल्टर चालू न हो।</Typography>
+        <Typography variant="body2" lang="mr" sx={{ fontWeight: 600 }}>ज्या डिस्कचा रंग वेगळा आहे त्यावर क्लिक करा. फक्त डोळ्यांचा वापर करा! आपल्या स्क्रीनवर कोणताही ब्लू-लाइट फिल्टर चालू नसल्याची खात्री करा.</Typography>
       </Stack>
       {/* Windows ME-style beveled divider under instructions */}
       <Box role="separator" aria-hidden sx={{ width: '100%', borderTop: '1px solid #ffffff', borderBottom: '1px solid #7f7f7f' }} />
@@ -45,7 +54,15 @@ export default function QuizPage() {
             <Typography variant="h6">Question {index + 1} of {questions.length}</Typography>
             <LinearProgress variant="determinate" value={progress} />
             <Typography variant="subtitle1">{q.text}</Typography>
-            <Stack direction="row" spacing={2} useFlexGap flexWrap="wrap">
+            <Box
+              sx={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(2, auto)',
+                gap: 2,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
               {q.options.map((opt, i) => (
                 <Box
                   key={i}
@@ -67,9 +84,8 @@ export default function QuizPage() {
                   }}
                 />
               ))}
-            </Stack>
+            </Box>
             <Stack direction="row" spacing={2}>
-              <Button variant="outlined" onClick={onRestart}>Restart</Button>
               <Button variant="contained" onClick={onNext} disabled={choice === null}>
                 {index + 1 < questions.length ? 'Next' : 'Finish'}
               </Button>
@@ -77,6 +93,7 @@ export default function QuizPage() {
           </Stack>
         </CardContent>
       </Card>
+      {/* Restart confirmation dialog */}
     </Stack>
   )
 }

@@ -10,7 +10,9 @@ export default function ResultsPage() {
       <CardContent>
         <Stack spacing={2}>
           <Typography variant="h5">Your Score: {score()} / {questions.length}</Typography>
-          <List>
+          {/* Scrollable results area */}
+          <Box sx={{ maxHeight: { xs: '50vh', sm: '60vh' }, overflowY: 'auto', pr: 1 }}>
+            <List>
             {questions.map((q, idx) => {
               const selected = answers[idx]
               const correct = q.answer
@@ -38,7 +40,8 @@ export default function ResultsPage() {
                 </ListItem>
               )
             })}
-          </List>
+            </List>
+          </Box>
           <Stack direction="row" spacing={2}>
             <Button variant="outlined" onClick={reset}>Try Again</Button>
             <Button variant="contained" component={Link} to="/">Back Home</Button>
