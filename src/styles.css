@@ -1,5 +1,5 @@
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body, html, #root {
@@ -9,6 +9,11 @@ body, html, #root {
 body {
   margin: 0;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  background-color: #121212;
-  color: #eaeaea;
+  background-color: #C0C0C0; /* Windows ME grey */
+  color: #000;
+}
+
+/* Remove rounding across the app */
+* {
+  border-radius: 0 !important;
 }

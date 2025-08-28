@@ -1,53 +1,93 @@
 import { createTheme } from '@mui/material/styles'
 
+// Windows ME–style: light greys, square corners, beveled (3D) edges, no shadows
+const bg = '#C0C0C0' // classic system grey
+const paper = '#DFDFDF'
+const borderLight = '#FFFFFF'
+const borderDark = '#808080'
+const titleStart = '#0a64a4'
+const titleEnd = '#094e84'
+
 export const theme = createTheme({
   palette: {
-    mode: 'dark',
-    primary: { main: '#0ea5e9', contrastText: '#ffffff' },
-    secondary: { main: '#9c27b0' },
-    background: {
-      default: '#121212',
-      paper: '#1e1e1e',
-    },
-    text: {
-      primary: '#eaeaea',
-      secondary: '#c4c4c4',
-    },
+    mode: 'light',
+    primary: { main: '#0a64a4', contrastText: '#ffffff' },
+    secondary: { main: '#2a78c2' },
+    background: { default: bg, paper },
+    text: { primary: '#000000', secondary: '#222' },
   },
-  // Remove shadows globally
+  shape: { borderRadius: 0 },
   shadows: Array(25).fill('none') as any,
   components: {
     MuiAppBar: {
       styleOverrides: {
         root: {
           boxShadow: 'none',
+          backgroundImage: `linear-gradient(180deg, ${titleStart}, ${titleEnd})`,
+          borderBottom: `2px solid ${borderDark}`,
         },
       },
     },
     MuiPaper: {
-      defaultProps: {
-        elevation: 0,
-      },
+      defaultProps: { elevation: 0 },
       styleOverrides: {
         root: {
+          backgroundColor: paper,
+          border: `1px solid ${borderDark}`,
           boxShadow: 'none',
+          // Bevel: light on top/left, dark on bottom/right
+          borderTopColor: borderLight,
+          borderLeftColor: borderLight,
         },
       },
     },
     MuiCard: {
       styleOverrides: {
         root: {
-          boxShadow: 'none',
+          borderRadius: 0,
         },
       },
     },
     MuiButton: {
-      defaultProps: {
-        disableElevation: true,
-      },
+      defaultProps: { disableElevation: true },
       styleOverrides: {
+        root: {
+          borderRadius: 0,
+          border: `1px solid ${borderDark}`,
+          borderTopColor: borderLight,
+          borderLeftColor: borderLight,
+          backgroundImage: 'linear-gradient(180deg, #ffffff, #d9d9d9)',
+          color: '#000',
+          boxShadow: 'none',
+          textTransform: 'none',
+          '&:active': {
+            // Pressed look: invert bevel
+            borderTopColor: borderDark,
+            borderLeftColor: borderDark,
+            borderBottomColor: borderLight,
+            borderRightColor: borderLight,
+            backgroundImage: 'linear-gradient(180deg, #d9d9d9, #ffffff)',
+          },
+        },
         contained: {
           boxShadow: 'none',
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          borderRadius: 0,
+          backgroundColor: '#fff',
+          '& .MuiOutlinedInput-notchedOutline': {
+            borderColor: borderDark,
+          },
+          '&:hover .MuiOutlinedInput-notchedOutline': {
+            borderColor: '#666',
+          },
+          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+            borderColor: '#333',
+          },
         },
       },
     },
