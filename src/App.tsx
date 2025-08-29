@@ -3,6 +3,7 @@ import { Container, Box, Stack, Typography } from '@mui/material'
 import HomePage from './pages/HomePage'
 import QuizPage from './pages/QuizPage'
 import RoundBPage from './pages/RoundBPage'
+import GamutPage from './pages/GamutPage'
 import ResultsPage from './pages/ResultsPage'
 import { QuizProvider } from './context/QuizContext'
 
@@ -17,6 +18,7 @@ export default function App() {
               <Route path="/quiz" element={<QuizPage />} />
               <Route path="/results" element={<ResultsPage />} />
               <Route path="/round-b" element={<RoundBPage />} />
+              <Route path="/gamut" element={<GamutPage />} />
             </Routes>
           </Container>
         </Box>

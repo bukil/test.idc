@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useMemo, useState } from 'react'
 import { questions as defaultQuestions, Question } from '../data/questions'
-import { basicQuestions } from '../data/basicQuestions'
 
 type Answers = Record<number, string>
 
@@ -23,11 +22,8 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
 
   const reset = () => setAnswers({})
 
-  const score = () => {
-    const roundAScore = questions.reduce((acc, q, i) => (answers[i] === q.answer ? acc + 1 : acc), 0)
-    const roundBScore = basicQuestions.reduce((acc, q, i) => (answers[100 + i] === q.answer ? acc + 1 : acc), 0)
-    return roundAScore + roundBScore
-  }
+  const score = () =>
+    questions.reduce((acc, q, i) => (answers[i] === q.answer ? acc + 1 : acc), 0)
 
   const value = useMemo(
     () => ({ questions, answers, recordAnswer, reset, score }),
